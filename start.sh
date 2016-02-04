@@ -25,17 +25,17 @@ function checkrancher {
 
 VAMP_API_PORT=${VAMP_API_PORT:-"8080"}
 VAMP_DB_TYPE=${VAMP_DB_TYPE:-"elasticsearch"} # elasticsearch or in-memory (no persistence)
-VAMP_DB_URL=${VAMP_DB_URL:-"http://elasticsearch"}
+VAMP_DB_URL=${VAMP_DB_URL:-"http://elasticsearch:9200"}
 VAMP_KEY_TYPE=${VAMP_KEY_TYPE:-"zookeeper"}  # zookeeper, etcd or consul
 VAMP_KEY_PATH=${VAMP_KEY_PATH:-"/vamp"} # base path for keys, e.g. /vamp/...
 VAMP_KEY_SERVERS=${VAMP_KEY_SERVERS:-"zookeeper:2181"}
 VAMP_HEAP_OPTS=${VAMP_HEAP_OPTS:-"-Xmx1G -Xms1G"}
    
-export VAMP_API_PORT VAMP_DB_TYPE VAMP_DB_URL VAMP_KEY_TYPE VAMP_KEY_PATH VAMP_KEY_SERVERS VAMP_HEAP_OPTS DOCKER_HOST
-
 checkrancher
 
-DOCKER_HOST=$(curl http://rancher-metadata/latest/self/host/agent_ip)
+DOCKER_HOST=tcp://$(curl http://rancher-metadata/latest/self/host/agent_ip):2375
+
+export VAMP_API_PORT VAMP_DB_TYPE VAMP_DB_URL VAMP_KEY_TYPE VAMP_KEY_PATH VAMP_KEY_SERVERS VAMP_HEAP_OPTS DOCKER_HOST
 
 application.conf.sh 
 logback.xml.sh

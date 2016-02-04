@@ -43,4 +43,3 @@ cat << EOF > ${VAMP_HOME}/conf/logback.xml
 </configuration>
 EOF
 
-cat ${VAMP_HOME}/conf/logback.xml
