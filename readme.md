@@ -1,4 +1,4 @@
-alpine-vamp
+rancher-vamp
 ============
 
 vamp image based in rancher-jvm8 (alpine)
