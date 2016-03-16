@@ -2,7 +2,7 @@ FROM rawmind/rancher-jvm8:0.0.2-1
 MAINTAINER Raul Sanchez <rawmind@gmail.com>
 
 #Set environment
-ENV VAMP_VERSION=0.8.3 \
+ENV VAMP_VERSION=0.8.4 \
     VAMP_HOME=/opt/vamp \
     DOCKER_VERSION=1.9.1
 ENV VAMP_RELEASE=vamp-${VAMP_VERSION}.jar
