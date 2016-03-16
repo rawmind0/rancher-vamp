@@ -36,6 +36,7 @@ vamp {
   container-driver {
     type = "docker"
     response-timeout = 30 # seconds, timeout for container operations
+    url = "${VAMP_DRIVER_URL}"
   }
 
   dictionary {

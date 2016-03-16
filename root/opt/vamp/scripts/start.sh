@@ -30,15 +30,14 @@ VAMP_KEY_TYPE=${VAMP_KEY_TYPE:-"zookeeper"}  # zookeeper, etcd or consul
 VAMP_KEY_PATH=${VAMP_KEY_PATH:-"/vamp"} # base path for keys, e.g. /vamp/...
 VAMP_KEY_SERVERS=${VAMP_KEY_SERVERS:-"zookeeper:2181"}
 VAMP_HEAP_OPTS=${VAMP_HEAP_OPTS:-"-Xmx1G -Xms1G"}
+VAMP_DRIVER_URL=${VAMP_DRIVER_URL:-"unix:///var/run/docker.sock"}
    
 checkrancher
 
-DOCKER_HOST=tcp://$(curl http://rancher-metadata/latest/self/host/agent_ip):2375
+export VAMP_API_PORT VAMP_DB_TYPE VAMP_DB_URL VAMP_KEY_TYPE VAMP_KEY_PATH VAMP_KEY_SERVERS VAMP_HEAP_OPTS VAMP_DRIVER_URL
 
-export VAMP_API_PORT VAMP_DB_TYPE VAMP_DB_URL VAMP_KEY_TYPE VAMP_KEY_PATH VAMP_KEY_SERVERS VAMP_HEAP_OPTS DOCKER_HOST
-
-application.conf.sh 
-logback.xml.sh
+${VAMP_HOME}/scripts/application.conf.sh 
+${VAMP_HOME}/scripts/logback.xml.sh
 
 log "[ Starting vamp service... ]"
 java $VAMP_HEAP_OPTS -Dlogback.configurationFile=${VAMP_HOME}/conf/logback.xml -Dconfig.file=${VAMP_HOME}/conf/application.conf -jar ${VAMP_HOME}/jar/${VAMP_RELEASE}
